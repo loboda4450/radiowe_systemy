@@ -14,7 +14,7 @@ async def params():
     return endpoints.get_params()
 
 
-@app.post("/api/v0.1/dsa/calc/}")
+@app.post("/api/v0.1/dsa/calc/")
 async def calc(lat_min: float, lat_max: float, long_min: float, long_max: float):
     return endpoints.post_calc(lat_min, lat_max, long_min, long_max)
 
