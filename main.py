@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from api import endpoints
-import database.dbmethods as dbmethods
+import database.db_methods as dbmethods
 
 app = FastAPI()
 

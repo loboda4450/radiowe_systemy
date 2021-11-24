@@ -1,7 +1,7 @@
 import random
 
 from pony.orm import *
-from database import models
+from database import db_models
 from logme import logme
 
 db = Database("sqlite", "radio_users.sqlite", create_db=True)

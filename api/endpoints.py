@@ -1,4 +1,4 @@
-import database.dbmethods as dbmethods
+import database.db_methods as dbmethods
 from logme import logme
 
 
