@@ -45,8 +45,7 @@ def update_user(_id: int, _from_alu: float):
 @logme
 @db_session
 def get_users():
-    return {(u.id, u.long, u.lat, u.nf, u.prx, u.gt, u.gr, u.channel, u.aclr1, u.aclr2, u.carrier, u.bandwidth) for u in
-            select(user for user in db_models.User)}
+    return [u.to_dict() for u in select(user for user in db_models.User)]
 
 
 @logme
