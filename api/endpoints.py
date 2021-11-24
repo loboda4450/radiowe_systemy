@@ -60,8 +60,9 @@ def register(data: endpoints_models.Register):
                      'carrier': data.carrier,
                      'bandwidth': data.bandwidth}
                 }
+
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f'Cannot register user in database, possible cause is: {e}')
+        raise HTTPException(status_code=422, detail=f'Cannot register user in database, possible cause is: {e}')
 
 
 @logme

@@ -36,6 +36,6 @@ async def delete_user(data: endpoints_models.Delete = None):
     return endpoints.delete_user(data=data)
 
 
-@app.patch("/api/v0.1/dsa/from_alu/")
+@app.patch("/api/v0.1/dsa/patch_user/")
 async def from_alu(data: endpoints_models.Patch):
     return endpoints.patch_user(data=data)
