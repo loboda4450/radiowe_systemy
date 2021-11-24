@@ -1,2 +1,3 @@
 fastapi~=0.70.0
 pony~=0.7.14
+pydantic~=1.8.2

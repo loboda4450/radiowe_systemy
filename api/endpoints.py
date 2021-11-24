@@ -1,5 +1,7 @@
-import database.db_methods as dbmethods
+from database import db_methods
+from api import endpoints_models
 from logme import logme
+from fastapi import HTTPException
 
 
 @logme
@@ -26,34 +28,39 @@ def get_params():
 
 
 @logme
-def post_alu(lat_min, lat_max, long_min, long_max):
+def alu(data: endpoints_models.Alu):
     return {
         'min_SNR': 6,  # dB
         'min_SINR': 0,  # dB
         'grid': 100,  # m
-        'lat_min': lat_min,
-        'lat_max': lat_max,
-        'long_min': long_min,
-        'long_max': long_max,
-        'users': dbmethods.get_users()  # contains all users in system
+        'lat_min': data.lat_min,
+        'lat_max': data.lat_max,
+        'long_min': data.long_min,
+        'long_max': data.long_max,
+        'users': db_methods.get_users()  # contains all users in system
     }
 
 
 @logme
-def post_register(long, lat, nf, prx, gt, gr, channel, aclr1, aclr2):
+def register(data: endpoints_models.Register):
     return {
-        'long': long,
-        'lat': lat,
-        'nf': nf,
-        'prx': prx,
-        'gt': gt,
-        'gr': gr,
-        'channel': channel,
-        'aclr1': aclr1,
-        'aclr2': aclr2
+        'long': data.long,
+        'lat': data.lat,
+        'nf': data.nf,
+        'prx': data.prx,
+        'gt': data.gt,
+        'gr': data.gr,
+        'channel': data.channel,
+        'aclr1': data.aclr1,
+        'aclr2': data.aclr2
     }
 
 
 @logme
-def update_from_alu():
-    return {'message': 'To be implemented'}
+def delete_user(data: endpoints_models.Delete):
+    return db_methods.delete_user(data)
+
+
+@logme
+def patch_user():
+    raise HTTPException(status_code=400, detail='Not implemented error!')

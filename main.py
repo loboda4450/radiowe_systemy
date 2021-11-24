@@ -1,13 +1,13 @@
 from fastapi import FastAPI
-from api import endpoints
-import database.db_methods as dbmethods
+from api import endpoints, endpoints_models
+from database import db_methods
 
 app = FastAPI()
 
 
 @app.get("/")
 async def root():
-    dbmethods.fill_db()
+    db_methods.fill_db()
     return endpoints.root()
 
 
@@ -16,17 +16,22 @@ async def params():
     return endpoints.get_params()
 
 
-@app.post("/api/v0.1/dsa/alu/")
-async def calc(lat_min: float, lat_max: float, long_min: float, long_max: float):
-    return endpoints.post_alu(lat_min, lat_max, long_min, long_max)
+@app.get("/api/v0.1/dsa/alu/")
+async def alu(data: endpoints_models.Alu):
+    return endpoints.alu(data.lat_min, data.lat_max, data.long_min, data.long_max)
 
 
 @app.post("/api/v0.1/dsa/register/")
-async def register(long: float, lat: float, nf: float, prx: float, gt: float, gr: float, channel: int, aclr1: float,
-                   aclr2: float):
-    return endpoints.post_register(long, lat, nf, prx, gt, gr, channel, aclr1, aclr2)
+async def register(data: endpoints_models.Register):
+    return endpoints.register(data.long, data.lat, data.nf, data.prx, data.gt, data.gr, data.channel, data.aclr1,
+                              data.aclr2)
 
 
-@app.put("/api/v0.1/dsa/from_alu/")
+@app.delete("/api/v0.1/dsa/delete/")
+async def delete_user(data: endpoints_models.Delete = None):
+    return endpoints.delete_user(data=data)
+
+
+@app.patch("/api/v0.1/dsa/from_alu/")
 async def from_alu():
-    return endpoints.update_from_alu()
+    return endpoints.patch_user()
