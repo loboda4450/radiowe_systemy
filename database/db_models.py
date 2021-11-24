@@ -18,7 +18,7 @@ class User(db.Entity):
     carrier = Required(int)
     bandwidth = Required(int)
 
-    from_alu = Optional(int)
+    from_alu = Optional(float)
 
 
 db.generate_mapping(create_tables=True)
