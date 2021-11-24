@@ -18,7 +18,14 @@ class Register(BaseModel):
     channel: int
     aclr1: float
     aclr2: float
+    carrier: int
+    bandwidth: int
 
 
 class Delete(BaseModel):
     id: int
+
+
+class Patch(BaseModel):
+    id: int
+    from_alu: float

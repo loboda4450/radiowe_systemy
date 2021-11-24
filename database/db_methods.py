@@ -5,6 +5,7 @@ from database import db_models
 from api import endpoints_models
 from logme import logme
 from fastapi import HTTPException
+from typing import Optional
 
 db = Database("sqlite", "radio_users.sqlite", create_db=True)
 
@@ -28,18 +29,22 @@ def fill_db():
 
 @logme
 @db_session
-def register_user(_long: float, _lat: float, _nf: float, _prx: float, _gt: float, _gr: float, _channel: int,
-                  _aclr1: float, _aclr2: float, _carrier: int, _bandwidth: int):
-    db_models.User(long=_long, lat=_lat, nf=_nf, prx=_prx, gt=_gt, gr=_gr, channel=_channel, aclr1=_aclr1, aclr2=_aclr2,
-                   carrier=_carrier, bandwidth=_bandwidth)
+def register_user(data: endpoints_models.Register):
+    db_models.User(long=data.long, lat=data.lat, nf=data.nf, prx=data.prx, gt=data.gt, gr=data.gr, channel=data.channel,
+                   aclr1=data.aclr1, aclr2=data.aclr2,
+                   carrier=data.carrier, bandwidth=data.bandwidth)
 
 
 @logme
 @db_session
-def update_user(_id: int, _from_alu: float):
-    user = db_models.User.get(id=_id)
-    user.from_alu = _from_alu
-    db.flush()
+def patch_user(data: endpoints_models.Patch) -> dict:
+    try:
+        user = db_models.User.get(id=data.id)
+        user.from_alu = data.from_alu
+        db.flush()
+        return {'message': f'successfully patched user[id={data.id}] with value from_alu={data.from_alu}'}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Cannot patch user in database, possible cause is: {e}')
 
 
 @logme

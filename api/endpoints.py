@@ -43,17 +43,30 @@ def alu(data: endpoints_models.Alu):
 
 @logme
 def register(data: endpoints_models.Register):
-    return {
-        'long': data.long,
-        'lat': data.lat,
-        'nf': data.nf,
-        'prx': data.prx,
-        'gt': data.gt,
-        'gr': data.gr,
-        'channel': data.channel,
-        'aclr1': data.aclr1,
-        'aclr2': data.aclr2
-    }
+    try:
+        db_methods.register_user(data=data)
+
+        return {'message': 'Registered user',
+                'params':
+                    {'long': data.long,
+                     'lat': data.lat,
+                     'nf': data.nf,
+                     'prx': data.prx,
+                     'gt': data.gt,
+                     'gr': data.gr,
+                     'channel': data.channel,
+                     'aclr1': data.aclr1,
+                     'aclr2': data.aclr2,
+                     'carrier': data.carrier,
+                     'bandwidth': data.bandwidth}
+                }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Cannot register user in database, possible cause is: {e}')
+
+
+@logme
+def users():
+    return {'users': db_methods.get_users()}
 
 
 @logme
@@ -62,5 +75,5 @@ def delete_user(data: endpoints_models.Delete):
 
 
 @logme
-def patch_user():
-    raise HTTPException(status_code=400, detail='Not implemented error!')
+def patch_user(data: endpoints_models.Patch):
+    return db_methods.patch_user(data=data)
