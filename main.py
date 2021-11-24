@@ -16,7 +16,7 @@ async def params():
     return endpoints.get_params()
 
 
-@app.get("/api/v0.1/dsa/alu/")
+@app.post("/api/v0.1/dsa/alu/")
 async def alu(data: endpoints_models.Alu):
     return endpoints.alu(data.lat_min, data.lat_max, data.long_min, data.long_max)
 
