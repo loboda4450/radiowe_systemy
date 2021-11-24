@@ -26,6 +26,8 @@ def fill_db():
                        carrier=random.randint(0, 240),
                        bandwidth=random.randint(0, 240))
 
+    db.flush()
+
 
 @logme
 @db_session
@@ -33,6 +35,7 @@ def register_user(data: endpoints_models.Register):
     db_models.User(long=data.long, lat=data.lat, nf=data.nf, prx=data.prx, gt=data.gt, gr=data.gr, channel=data.channel,
                    aclr1=data.aclr1, aclr2=data.aclr2,
                    carrier=data.carrier, bandwidth=data.bandwidth)
+    db.flush()
 
 
 @logme
@@ -55,6 +58,11 @@ def get_users():
 
 @logme
 @db_session
-def delete_user(data: endpoints_models.Delete = None):
-    # TODO: remove user from database
-    raise HTTPException(status_code=400, detail=f'Not implemented error!, passed data: {data}')
+def delete_user(data: endpoints_models.Delete):
+    try:
+        user = db_models.User.get(id=data.id)
+        user.delete()
+        db.flush()
+        return {'message': f'Succesfuly removed user[id={data.id}] from database!'}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Cannot delete user from database, possible cause is: {e}')
