@@ -43,13 +43,12 @@ def register_user(data: endpoints_models.Register):
 @logme
 @db_session
 def patch_user(data: endpoints_models.Patch) -> dict:
-    try:
-        user = db_models.User.get(id=data.id)
+    if user := db_models.User.get(id=data.id):
         user.from_alu = data.from_alu
         db.flush()
         return {'message': f'successfully patched user[id={data.id}] with value from_alu={data.from_alu}'}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f'Cannot patch user in database, possible cause is: {e}')
+    else:
+        raise Exception(f"There's no user with specified id={data.id}")
 
 
 @logme
@@ -61,20 +60,16 @@ def get_users():
 @logme
 @db_session
 def delete_user(data: endpoints_models.Delete):
-    try:
-        user = db_models.User.get(id=data.id)
+    if user := db_models.User.get(id=data.id):
         user.delete()
         db.flush()
         return {'message': f'Succesfuly removed user[id={data.id}] from database!'}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f'Cannot delete user from database, possible cause is: {e}')
-
+    else:
+        raise Exception(f"There's no user with specified id={data.id}")
 
 @logme
 @db_session
 def get_last_alu():
-    try:
-        user = list(db_models.User.select())
-        return user[-1].to_dict()
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f'Cannot get data from database, possible cause is: {e}')
+    user = list(db_models.User.select())
+    return user[-1].to_dict()
+

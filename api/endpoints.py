@@ -68,19 +68,28 @@ def register(data: endpoints_models.Register):
 
 @logme
 def users():
-    return {'users': db_methods.get_users()}
-
+    try:
+        return {'users': db_methods.get_users()}
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=f'Cannot receive users from database, possible cause is: {e}')
 
 @logme
 def delete_user(data: endpoints_models.Delete):
-    return db_methods.delete_user(data)
-
+    try:
+        return db_methods.delete_user(data)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=f'Cannot delete user in database, possible cause is: {e}')
 
 @logme
 def patch_user(data: endpoints_models.Patch):
-    return db_methods.patch_user(data=data)
-
+    try:
+        return db_methods.patch_user(data=data)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=f'Cannot patch user in database, possible cause is: {e}')
 
 @logme
 def get_last_alu():
-    return db_methods.get_last_alu()
+    try:
+        return db_methods.get_last_alu()
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=f'Cannot receive last user from database, possible cause is: {e}')
