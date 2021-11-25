@@ -73,6 +73,6 @@ def delete_user(data: endpoints_models.Delete):
 def get_last_alu():
     try:
         user = list(db_models.User.select())
-        return {'from_alu': user[-1].from_alu}
+        return user[-1].to_dict()
     except Exception as e:
         raise HTTPException(status_code=500, detail=f'Cannot get data from database, possible cause is: {e}')

@@ -46,20 +46,21 @@ def register(data: endpoints_models.Register):
     try:
         db_methods.register_user(data=data)
 
-        return {'message': 'Registered user',
-                'params':
-                    {'long': data.long,
-                     'lat': data.lat,
-                     'nf': data.nf,
-                     'prx': data.prx,
-                     'gt': data.gt,
-                     'gr': data.gr,
-                     'channel': data.channel,
-                     'aclr1': data.aclr1,
-                     'aclr2': data.aclr2,
-                     'carrier': data.carrier,
-                     'bandwidth': data.bandwidth}
+        return {
+            'message': 'Registered user',
+            'params':
+                {
+                    'long': data.long,
+                    'lat': data.lat,
+                    'nf': data.nf,
+                    'prx': data.prx,
+                    'gt': data.gt,
+                    'gr': data.gr,
+                    'channel': data.channel,
+                    'aclr1': data.aclr1,
+                    'aclr2': data.aclr2
                 }
+        }
 
     except Exception as e:
         raise HTTPException(status_code=422, detail=f'Cannot register user in database, possible cause is: {e}')

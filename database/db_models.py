@@ -15,9 +15,6 @@ class User(db.Entity):
     aclr1 = Required(float)
     aclr2 = Required(float)
 
-    carrier = Required(int)
-    bandwidth = Required(int)
-
     from_alu = Optional(float)
 
 
