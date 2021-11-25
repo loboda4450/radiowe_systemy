@@ -78,3 +78,8 @@ def delete_user(data: endpoints_models.Delete):
 @logme
 def patch_user(data: endpoints_models.Patch):
     return db_methods.patch_user(data=data)
+
+
+@logme
+def get_last_alu():
+    return db_methods.get_last_alu()

@@ -66,3 +66,12 @@ def delete_user(data: endpoints_models.Delete):
         return {'message': f'Succesfuly removed user[id={data.id}] from database!'}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f'Cannot delete user from database, possible cause is: {e}')
+
+
+@logme
+@db_session
+def get_last_alu():
+    try:
+        return {'from_alu': db_models.User[-1].from_alu}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Cannot get data from database, possible cause is: {e}')
