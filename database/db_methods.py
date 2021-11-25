@@ -32,10 +32,12 @@ def fill_db():
 @logme
 @db_session
 def register_user(data: endpoints_models.Register):
-    db_models.User(long=data.long, lat=data.lat, nf=data.nf, prx=data.prx, gt=data.gt, gr=data.gr, channel=data.channel,
-                   aclr1=data.aclr1, aclr2=data.aclr2,
-                   carrier=data.carrier, bandwidth=data.bandwidth)
-    db.flush()
+    if not select(u for u in db_models.User if u.channel == data.channel).exists():
+        db_models.User(long=data.long, lat=data.lat, nf=data.nf, prx=data.prx, gt=data.gt, gr=data.gr, channel=data.channel,
+                       aclr1=data.aclr1, aclr2=data.aclr2)
+        db.flush()
+    else:
+        raise Exception('User already exist')
 
 
 @logme

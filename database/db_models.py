@@ -16,6 +16,8 @@ class User(db.Entity):
     aclr2 = Required(float)
 
     from_alu = Optional(float)
+    sinr = Optional(float)
+    ptx = Optional(float)
 
 
 db.generate_mapping(create_tables=True)
