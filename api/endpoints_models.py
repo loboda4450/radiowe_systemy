@@ -1,11 +1,12 @@
+from typing import Optional
 from pydantic import BaseModel
 
 
-class Alu(BaseModel):
-    lat_min: float
-    lat_max: float
-    long_min: float
-    long_max: float
+# class Alu(BaseModel):
+#     lat_min: float
+#     lat_max: float
+#     long_min: float
+#     long_max: float
 
 
 class Register(BaseModel):
@@ -27,3 +28,12 @@ class Delete(BaseModel):
 class Patch(BaseModel):
     id: int
     from_alu: float
+
+
+class User(BaseModel):
+    username: str
+    disabled: Optional[bool] = None
+
+
+class UserInDB(User):
+    hashed: str

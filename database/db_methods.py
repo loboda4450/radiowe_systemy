@@ -4,8 +4,6 @@ from pony.orm import *
 from database import db_models
 from api import endpoints_models
 from logme import logme
-from fastapi import HTTPException
-from typing import Optional
 
 db = Database("sqlite", "radio_users.sqlite", create_db=True)
 
@@ -22,9 +20,7 @@ def fill_db():
                        gr=round(random.uniform(0, 40), 2),
                        channel=random.randint(0, 12),
                        aclr1=round(random.uniform(0, 40), 2),
-                       aclr2=round(random.uniform(0, 40), 2),
-                       carrier=random.randint(0, 240),
-                       bandwidth=random.randint(0, 240))
+                       aclr2=round(random.uniform(0, 40), 2))
 
     db.flush()
 
@@ -33,7 +29,8 @@ def fill_db():
 @db_session
 def register_user(data: endpoints_models.Register):
     if not select(u for u in db_models.User if u.channel == data.channel).exists():
-        db_models.User(long=data.long, lat=data.lat, nf=data.nf, prx=data.prx, gt=data.gt, gr=data.gr, channel=data.channel,
+        db_models.User(long=data.long, lat=data.lat, nf=data.nf, prx=data.prx, gt=data.gt, gr=data.gr,
+                       channel=data.channel,
                        aclr1=data.aclr1, aclr2=data.aclr2)
         db.flush()
     else:
@@ -67,9 +64,33 @@ def delete_user(data: endpoints_models.Delete):
     else:
         raise Exception(f"There's no user with specified id={data.id}")
 
+
 @logme
 @db_session
 def get_last_alu():
     user = list(db_models.User.select())
     return user[-1].to_dict()
 
+
+@logme
+@db_session
+def get_lat_min():
+    return min(u.lat for u in db_models.User)
+
+
+@logme
+@db_session
+def get_lat_max():
+    return max(u.lat for u in db_models.User)
+
+
+@logme
+@db_session
+def get_long_min():
+    return min(u.long for u in db_models.User)
+
+
+@logme
+@db_session
+def get_long_max():
+    return max(u.long for u in db_models.User)
