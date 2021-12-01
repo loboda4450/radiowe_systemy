@@ -8,7 +8,7 @@ class User(db.Entity):
     long = Required(float)
     lat = Required(float)
     nf = Required(float)
-    prx = Required(float)
+    ptx = Required(float)
     gt = Required(float)
     gr = Required(float)
     channel = Required(int)
@@ -17,7 +17,7 @@ class User(db.Entity):
 
     from_alu = Optional(float)
     sinr = Optional(float)
-    ptx = Optional(float)
+    prx = Optional(float)
 
 
 db.generate_mapping(create_tables=True)
