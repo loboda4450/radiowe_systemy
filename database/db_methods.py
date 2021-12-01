@@ -15,7 +15,7 @@ def fill_db():
         db_models.User(long=round(random.uniform(-180, 180), 2),
                        lat=round(random.uniform(-90, 90), 2),
                        nf=round(random.uniform(0, 40), 2),
-                       prx=round(random.uniform(0, 40), 2),
+                       ptx=round(random.uniform(0, 40), 2),
                        gt=round(random.uniform(0, 40), 2),
                        gr=round(random.uniform(0, 40), 2),
                        channel=random.randint(0, 12),
@@ -29,7 +29,7 @@ def fill_db():
 @db_session
 def register_user(data: endpoints_models.Register):
     if not select(u for u in db_models.User if u.channel == data.channel).exists():
-        db_models.User(long=data.long, lat=data.lat, nf=data.nf, prx=data.prx, gt=data.gt, gr=data.gr,
+        db_models.User(long=data.long, lat=data.lat, nf=data.nf, ptx=data.ptx, gt=data.gt, gr=data.gr,
                        channel=data.channel,
                        aclr1=data.aclr1, aclr2=data.aclr2)
         db.flush()

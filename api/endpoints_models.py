@@ -13,7 +13,7 @@ class Register(BaseModel):
     long: float
     lat: float
     nf: float
-    prx: float
+    ptx: float
     gt: float
     gr: float
     channel: int

@@ -52,7 +52,7 @@ def register(data: endpoints_models.Register):
                     'long': data.long,
                     'lat': data.lat,
                     'nf': data.nf,
-                    'prx': data.prx,
+                    'ptx': data.ptx,
                     'gt': data.gt,
                     'gr': data.gr,
                     'channel': data.channel,

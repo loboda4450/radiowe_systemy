@@ -1,4 +1,4 @@
-from api.endpoints_models import UserInDB, User
+from api.endpoints_models import UserInDB, User, Register
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 
@@ -47,3 +47,22 @@ async def get_current_active_user(current_user: User = Depends(get_current_user)
     if current_user.disabled:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
+
+
+# async def check_data(data: Register):
+#     if -180 < data.long < 180:
+#         raise HTTPException(status_code=406, detail=f'Data validation error: longitude {data.long} exceeds limit [-180; 180]')
+#     if -90 < data.lat < 90:
+#         raise HTTPException(status_code=406, detail=f'Data validation error: latitude {data.lat} exceeds limit [-90; 90]')
+#     if 0 < data.nf < 40:
+#         raise HTTPException(status_code=406, detail=f'Data validation error: noise factor {data.nf} exceeds limit [0; 40]')
+#     if 0 < data.ptx < 40:
+#         raise HTTPException(status_code=406, detail=f'Data validation error: ptx {data.ptx} exceeds limit [0; 40]')
+#     if 0 < data.gt < 40:
+#         raise HTTPException(status_code=406, detail=f'Data validation error: gain transmitter {data.gt} exceeds limit [0; 40]')
+#     if 0 < data.gr < 40:
+#         raise HTTPException(status_code=406, detail=f'Data validation error: gain receiver {data.gr} exceeds limit [0; 40]')
+#     if 0 < data.channel < 12:
+#         raise HTTPException(status_code=406, detail=f'Data validation error: channel {data.channel} exceeds limit [0; 12]')
+#
+#     return data
