@@ -1,3 +1,5 @@
+import uvicorn
+
 from api.endpoints_models import UserInDB, User, Register
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer

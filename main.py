@@ -1,14 +1,13 @@
 from fastapi import FastAPI, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from api import endpoints, endpoints_models, aux
-from database import db_methods
+import uvicorn
 
 app = FastAPI()
 
 
 @app.get("/")
 async def root():
-    db_methods.fill_db()
     return endpoints.root()
 
 
@@ -23,7 +22,7 @@ async def alu():
 
 
 @app.post("/api/v0.1/dsa/register/")
-async def register(data: endpoints_models.Register):
+async def register(data: endpoints_models.Register = Depends(aux.check_data)):
     return endpoints.register(data=data)
 
 
@@ -33,7 +32,8 @@ async def users(current_user: endpoints_models.User = Depends(aux.get_current_ac
 
 
 @app.delete("/api/v0.1/dsa/delete/")
-async def delete_user(data: endpoints_models.Delete = None, current_user: endpoints_models.User = Depends(aux.get_current_active_user)):
+async def delete_user(data: endpoints_models.Delete = None,
+                      current_user: endpoints_models.User = Depends(aux.get_current_active_user)):
     return endpoints.delete_user(data=data)
 
 
@@ -55,3 +55,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
 @app.get("/users/me")
 async def read_users_me(current_user: endpoints_models.User = Depends(aux.get_current_active_user)):
     return current_user
+
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host='0.0.0.0', port=20232, reload=True, debug=True, workers=1)
