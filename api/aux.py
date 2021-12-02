@@ -52,14 +52,14 @@ async def get_current_active_user(current_user: User = Depends(get_current_user)
 async def check_data(data: Register):
     if not 52.361 <= data.lat <= 52.436:
         raise HTTPException(status_code=406, detail=f'Data validation error: lngitude {data.lng} exceeds limit ['
-                                                    f'-52.361; 52.436]')
+                                                    f'52.361; 52.436]')
     if not 16.844 <= data.lng <= 17.008:
         raise HTTPException(status_code=406, detail=f'Data validation error: latitude {data.lat} exceeds limit [16.844; 17.008]')
     if not 0 <= data.nf <= 40:
         raise HTTPException(status_code=406, detail=f'Data validation error: noise factor {data.nf} exceeds limit [0; '
                                                     f'40]')
-    if not 0 <= data.ptx <= 40:
-        raise HTTPException(status_code=406, detail=f'Data validation error: ptx {data.ptx} exceeds limit [0; 40]')
+    if not -60 <= data.ptx <= 40:
+        raise HTTPException(status_code=406, detail=f'Data validation error: ptx {data.ptx} exceeds limit [-60; 40]')
     if not 0 <= data.gt <= 40:
         raise HTTPException(status_code=406, detail=f'Data validation error: gain transmitter {data.gt} exceeds limit '
                                                     f'[0; 40]')
@@ -69,9 +69,9 @@ async def check_data(data: Register):
     if not 0 <= data.channel <= 12:
         raise HTTPException(status_code=406, detail=f'Data validation error: channel {data.channel} exceeds limit [0; '
                                                     f'12]')
-    if not 0 <= data.aclr1 <= 40:
-        raise HTTPException(status_code=406, detail=f'Data validation error: aclr1 {data.aclr1} exceeds limit [0; 40]')
-    if not 0 <= data.aclr2 <= 40:
-        raise HTTPException(status_code=406, detail=f'Data validation error: aclr2 {data.aclr2} exceeds limit [0; 40]')
+    if not 0 <= data.aclr1:
+        raise HTTPException(status_code=406, detail=f'Data validation error: aclr1 {data.aclr1} exceeds limit [0; inf]')
+    if not 0 <= data.aclr2:
+        raise HTTPException(status_code=406, detail=f'Data validation error: aclr2 {data.aclr2} exceeds limit [0; inf]')
 
     return data
