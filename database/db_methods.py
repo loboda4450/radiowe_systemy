@@ -21,7 +21,7 @@ def patch_user(data: endpoints_models.Patch) -> dict:
     if user := db_models.User.get(id=data.id):
         user.sinr = data.sinr
         db.flush()
-        return {'message': f'successfully patched user[id={data.id}] with value from_alu={data.sinr}'}
+        return {'message': f'successfully patched user[id={data.id}] with value sinr={data.sinr}'}
     else:
         raise Exception(f"There's no user with specified id={data.id}")
 
