@@ -50,8 +50,8 @@ async def get_current_active_user(current_user: User = Depends(get_current_user)
 
 
 async def check_data(data: Register):
-    if not 52.361 <= data.long <= 52.436:
-        raise HTTPException(status_code=406, detail=f'Data validation error: longitude {data.long} exceeds limit ['
+    if not 52.361 <= data.lat <= 52.436:
+        raise HTTPException(status_code=406, detail=f'Data validation error: lngitude {data.lng} exceeds limit ['
                                                     f'-180; 180]')
     if not 16.844 <= data.lng <= 17.008:
         raise HTTPException(status_code=406, detail=f'Data validation error: latitude {data.lat} exceeds limit [-90; 90]')

@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 
 class Register(BaseModel):
-    long: float
+    lng: float
     lat: float
     nf: float
     ptx: float

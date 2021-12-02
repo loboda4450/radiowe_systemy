@@ -22,8 +22,8 @@ def get_params():
         'bandwidth': 10,  # Mhz per channel
         'lat_min': 52.361,
         'lat_max': 52.436,
-        'long_min': 16.844,
-        'long_max': 17.008
+        'lng_min': 16.844,
+        'lng_max': 17.008
     }
 
 
@@ -49,7 +49,7 @@ def register(data: endpoints_models.Register):
             'message': 'Registered user',
             'params':
                 {
-                    'long': data.long,
+                    'lng': data.lng,
                     'lat': data.lat,
                     'nf': data.nf,
                     'ptx': data.ptx,

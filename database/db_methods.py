@@ -12,7 +12,7 @@ db = Database("sqlite", "radio_users.sqlite", create_db=True)
 @db_session
 def fill_db():
     for _ in range(50):
-        db_models.User(long=round(random.uniform(-180, 180), 2),
+        db_models.User(lng=round(random.uniform(-180, 180), 2),
                        lat=round(random.uniform(-90, 90), 2),
                        nf=round(random.uniform(0, 40), 2),
                        ptx=round(random.uniform(0, 40), 2),
@@ -28,7 +28,7 @@ def fill_db():
 @logme
 @db_session
 def register_user(data: endpoints_models.Register):
-    db_models.User(long=data.long, lat=data.lat, nf=data.nf, ptx=data.ptx, gt=data.gt, gr=data.gr,
+    db_models.User(lng=data.lng, lat=data.lat, nf=data.nf, ptx=data.ptx, gt=data.gt, gr=data.gr,
                    channel=data.channel,
                    aclr1=data.aclr1, aclr2=data.aclr2)
     db.flush()

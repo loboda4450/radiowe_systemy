@@ -5,7 +5,7 @@ db = Database("sqlite", "radio_users.sqlite", create_db=True)
 
 class User(db.Entity):
     id = PrimaryKey(int, auto=True)
-    long = Required(float)
+    lng = Required(float)
     lat = Required(float)
     nf = Required(float)
     ptx = Required(float)
