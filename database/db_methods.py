@@ -69,27 +69,3 @@ def get_last_alu():
         return db_models.User.get(id=min(u.id for u in db_models.User if u.from_alu is None)).to_dict()
     else:
         raise Exception(f"There aint not served users")
-
-
-@logme
-@db_session
-def get_lat_min():
-    return min(u.lat for u in db_models.User)
-
-
-@logme
-@db_session
-def get_lat_max():
-    return max(u.lat for u in db_models.User)
-
-
-@logme
-@db_session
-def get_long_min():
-    return min(u.long for u in db_models.User)
-
-
-@logme
-@db_session
-def get_long_max():
-    return max(u.long for u in db_models.User)
