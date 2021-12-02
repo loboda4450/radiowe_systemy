@@ -14,6 +14,8 @@ def register_user(data: endpoints_models.Register):
                    aclr1=data.aclr1, aclr2=data.aclr2)
     db.flush()
 
+    return db_models.User[-1].id
+
 
 @logme
 @db_session
@@ -41,6 +43,12 @@ def delete_user(data: endpoints_models.Delete):
         return {'message': f'Succesfuly removed user[id={data.id}] from database!'}
     else:
         raise Exception(f"There's no user with specified id={data.id}")
+
+
+@logme
+@db_session
+def is_user_updated(id: int):
+    return db_models.User.get(id=id).sinr
 
 
 @logme

@@ -1,3 +1,5 @@
+from time import sleep
+
 from fastapi.security import OAuth2PasswordRequestForm
 
 from database import db_methods
@@ -43,7 +45,10 @@ def alu():
 @logme
 def register(data: endpoints_models.Register):
     try:
-        db_methods.register_user(data=data)
+        _id = db_methods.register_user(data=data)
+
+        while not db_methods.is_user_updated(id=_id):
+            sleep(2)
 
         return {
             'message': 'Registered user',
