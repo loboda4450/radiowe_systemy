@@ -20,6 +20,10 @@ def get_params():
         'carrier': 1811,  # MHz
         'channels': 12,  # just 12 channels XD
         'bandwidth': 10,  # Mhz per channel
+        'lat_min': 52.361,
+        'lat_max': 52.436,
+        'long_min': 16.844,
+        'long_max': 17.008
     }
 
 
