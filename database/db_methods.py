@@ -1,28 +1,9 @@
-import random
-
 from pony.orm import *
 from database import db_models
 from api import endpoints_models
 from logme import logme
 
 db = Database("sqlite", "radio_users.sqlite", create_db=True)
-
-
-@logme
-@db_session
-def fill_db():
-    for _ in range(50):
-        db_models.User(lng=round(random.uniform(-180, 180), 2),
-                       lat=round(random.uniform(-90, 90), 2),
-                       nf=round(random.uniform(0, 40), 2),
-                       ptx=round(random.uniform(0, 40), 2),
-                       gt=round(random.uniform(0, 40), 2),
-                       gr=round(random.uniform(0, 40), 2),
-                       channel=random.randint(0, 12),
-                       aclr1=round(random.uniform(0, 40), 2),
-                       aclr2=round(random.uniform(0, 40), 2))
-
-    db.flush()
 
 
 @logme
