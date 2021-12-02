@@ -38,9 +38,9 @@ def register_user(data: endpoints_models.Register):
 @db_session
 def patch_user(data: endpoints_models.Patch) -> dict:
     if user := db_models.User.get(id=data.id):
-        user.from_alu = data.from_alu
+        user.sinr = data.sinr
         db.flush()
-        return {'message': f'successfully patched user[id={data.id}] with value from_alu={data.from_alu}'}
+        return {'message': f'successfully patched user[id={data.id}] with value from_alu={data.sinr}'}
     else:
         raise Exception(f"There's no user with specified id={data.id}")
 

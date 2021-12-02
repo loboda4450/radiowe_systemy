@@ -20,7 +20,8 @@ class Delete(BaseModel):
 
 class Patch(BaseModel):
     id: int
-    from_alu: float
+    status: bool
+    sinr: float
 
 
 class User(BaseModel):
