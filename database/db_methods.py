@@ -65,8 +65,10 @@ def delete_user(data: endpoints_models.Delete):
 @logme
 @db_session
 def get_last_alu():
-    user = list(db_models.User.select())
-    return user[-1].to_dict()
+    if select(u.from_alu for u in db_models.User if u.from_alu is None).exists():
+        return db_models.User.get(id=min(u.id for u in db_models.User if u.from_alu is None)).to_dict()
+    else:
+        raise Exception(f"There aint not served users")
 
 
 @logme
