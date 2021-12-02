@@ -16,7 +16,7 @@ async def params():
     return endpoints.get_params()
 
 
-@app.post("/api/v0.1/dsa/alu/")
+@app.get("/api/v0.1/dsa/alu/")
 async def alu():
     return endpoints.alu()
 
