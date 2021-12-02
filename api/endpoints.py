@@ -34,10 +34,6 @@ def alu():
             'min_SNR': 6,  # dB
             'min_SINR': 0,  # dB
             'grid': 100,  # m
-            'lat_min': db_methods.get_lat_min(),
-            'lat_max': db_methods.get_lat_max(),
-            'long_min': db_methods.get_long_min(),
-            'long_max': db_methods.get_long_max(),
             'users': db_methods.get_users()  # contains all users in system
         }
     except Exception as e:
