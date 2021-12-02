@@ -1,6 +1,3 @@
-import logging
-
-import uvicorn
 from fastapi.security import OAuth2PasswordRequestForm
 
 from database import db_methods

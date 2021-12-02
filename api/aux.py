@@ -1,5 +1,3 @@
-import uvicorn
-
 from api.endpoints_models import UserInDB, User, Register
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
@@ -52,10 +50,10 @@ async def get_current_active_user(current_user: User = Depends(get_current_user)
 
 
 async def check_data(data: Register):
-    if not -180 <= data.long <= 180:
+    if not 52.361 <= data.long <= 52.436:
         raise HTTPException(status_code=406, detail=f'Data validation error: longitude {data.long} exceeds limit ['
                                                     f'-180; 180]')
-    if not -90 <= data.lat <= 90:
+    if not 16.844 <= data.lat <= 17.008:
         raise HTTPException(status_code=406, detail=f'Data validation error: latitude {data.lat} exceeds limit [-90; 90]')
     if not 0 <= data.nf <= 40:
         raise HTTPException(status_code=406, detail=f'Data validation error: noise factor {data.nf} exceeds limit [0; '
