@@ -53,7 +53,7 @@ async def check_data(data: Register):
     if not 52.361 <= data.long <= 52.436:
         raise HTTPException(status_code=406, detail=f'Data validation error: longitude {data.long} exceeds limit ['
                                                     f'-180; 180]')
-    if not 16.844 <= data.lat <= 17.008:
+    if not 16.844 <= data.lng <= 17.008:
         raise HTTPException(status_code=406, detail=f'Data validation error: latitude {data.lat} exceeds limit [-90; 90]')
     if not 0 <= data.nf <= 40:
         raise HTTPException(status_code=406, detail=f'Data validation error: noise factor {data.nf} exceeds limit [0; '
